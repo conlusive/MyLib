@@ -1,0 +1,29 @@
+{% extends 'pages/base.html' %}
+
+{% block title %}Search results{% endblock %}
+
+{% block content %}
+  <h1>Search results for: "{{ query }}"</h1>
+
+  {% if results %}
+    <div class="books-grid">
+      {% for book in results %}
+        <div class="book-card">
+          <img src="{{ book.image_url }}" alt="{{ book.title }} cover" />
+          <div class="book-content">
+            <a href="{% url 'book_detail' book.id %}" class="book-title">{{ book.title }}</a>
+            <p class="book-author">{{ book.author }}</p>
+            <p class="book-description">{{ book.description|truncatewords:20 }}</p>
+            <a href="{% url 'book_detail' book.id %}" class="view-btn">Review</a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p>Nothing found.</p>
+  {% endif %}
+
+  <a href="{% url 'home' %}">Return to home page</a>
+    <a href="{% url 'blog' %}">Return to catalog</a>
+{% endblock %}
+

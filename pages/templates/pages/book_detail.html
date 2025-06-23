@@ -1,0 +1,71 @@
+{% extends "pages/base.html" %}
+{% block title %}{{ book.title }}{% endblock %}
+
+{% block content %}
+<div class="book-detail-container">
+  <div class="book-detail">
+    <div class="book-header">
+      <div class="title-author-wrapper">
+        <h2 class="book-title">{{ book.title }}</h2>
+        <div class="book-meta">
+          <span class="author"><i class="fa fa-user"></i> Author: {{ book.author.name|lower }}</span>
+        </div>
+      </div>
+
+      <div class="book-actions">
+        {% if already_added %}
+          <button class="btn added" disabled>Already added</button>
+          <form method="post" class="remove-form" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" name="remove_from_library" value="1" class="btn remove">Delete from library</button>
+          </form>
+        {% else %}
+          <form method="post" class="add-form" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" name="add_to_library" value="1" class="btn add">Add to library</button>
+          </form>
+        {% endif %}
+      </div>
+    </div>
+
+    <p class="content-text">{{ book.content }}</p>
+
+    <hr>
+
+    <h3>Comments:</h3>
+    <div class="comments-section">
+      {% if comments %}
+        {% for comment in comments %}
+          <div class="comment">
+            <p>{{ comment.content }}</p>
+            <small>from <strong>{{ comment.user.username }}</strong> – {{ comment.created_at|date:"d.m.Y H:i" }}</small>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p>None comments yet.</p>
+      {% endif %}
+    </div>
+
+    <hr>
+
+    <form method="post" class="comment-form">
+      {% csrf_token %}
+      <div class="form-group">
+        {{ form.content.label_tag }}
+        {{ form.content }}
+        {% if form.content.errors %}
+          <div class="error">{{ form.content.errors }}</div>
+        {% endif %}
+      </div>
+      <button type="submit" name="comment_submit" value="1" class="btn comment-submit">Send</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+
+
+
+
+
+

@@ -1,0 +1,54 @@
+{% extends "pages/base.html" %}
+
+
+{% block title %}Book catalog{% endblock %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/blog-card.css' %}">
+
+
+<div class="page-container">
+    <div class="main-content">
+      <div class="books-grid">
+        {% for book in page_obj %}
+          <div class="book-card">
+            {% if book.image_url %}
+              <img src="{{ book.image_url }}" alt="{{ book.title }}">
+            {% else %}
+              <img src="{% static 'pages/default-book.png' %}" alt="Without cover">
+            {% endif %}
+            <div class="book-content">
+              <a href="{% url 'book_detail' book.id %}" class="book-title">{{ book.title }}</a>
+              <p class="book-author">Author: {{ book.author.name }}</p>
+              <p class="book-description">{{ book.description|truncatewords:20 }}</p>
+              <a href="{% url 'book_detail' book.id %}" class="view-btn">Read</a>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+  <div class="pagination">
+    {% if page_obj.has_previous %}
+      <a href="?page=1">&laquo; First</a>
+      <a href="?page={{ page_obj.previous_page_number }}">&lsaquo; Back</a>
+    {% endif %}
+
+    <span>Page {{ page_obj.number }} з {{ page_obj.paginator.num_pages }}</span>
+
+    {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}">Next &rsaquo;</a>
+      <a href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
+
+
+
+
+
+
+
+

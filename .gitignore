@@ -1,0 +1,18 @@
+# IDEs
+.idea/
+__pycache__/
+*.pyc
+
+# Django DB
+db.sqlite3
+
+# Media files
+media/
+
+# Environments
+env/
+venv/
+*.env
+
+
+Add .gitignore

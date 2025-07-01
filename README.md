@@ -1,12 +1,12 @@
 # MyLib.exe
 
-MyLib.exe is a lightweight Windows executable library designed to provide
+MyLib.exe is an online library web application built with Django.
 
 ## Features
 
-- Easy to use Windows executable
-- Lightweight and fast
-- Simple integration
+- Manage books and authors
+- User registration and authentication
+- Browse and search books online
 
 ## Installation
 
